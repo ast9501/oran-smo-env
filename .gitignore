@@ -1,0 +1,10 @@
+# terraform 
+.terraform*
+*.tfstate.*
+*.tfstate
+
+# private env file
+localrc
+
+# private key
+id_rsa
