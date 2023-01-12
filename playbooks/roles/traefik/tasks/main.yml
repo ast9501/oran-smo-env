@@ -1,0 +1,50 @@
+- name: install helm repo
+  kubernetes.core.helm_repository:
+    name: traefik
+    repo_url: "https://traefik.github.io/charts"
+
+#- name: create namespace
+#  kubernetes.core.k8s:
+#    name: traefik
+#    api_version: v1
+#    kind: Namespace
+#    state: present
+
+- name: install traefik
+  kubernetes.core.helm:
+    name: traefik
+    chart_ref: traefik/traefik
+    chart_version: 10.24.0
+    release_namespace: traefik
+    create_namespace: true
+    values:
+      ingressRoute:
+        dashboard:
+          labels: { environment: production, method: traefik }
+      providers:
+        kubernetesCRD:
+          enabled: true
+          labelSelector: environment=production,method=traefik
+        kubernetesIngress:
+          enabled: true
+          labelSelector: environment=production,method=traefik
+      ports:
+        traefik:
+          expose: true
+        web:
+          expose: true
+          edirectTo: websecure
+        websecure:
+          expose: true
+          tls:
+            enabled: true
+            domains:
+            - main: winlab.nycu.org
+              sans:
+                - 'winlab.nycu.org'
+                - '*.winlab.nycu.org'
+      service:
+        enabled: true
+        type: ClusterIP
+        externalIPs:    # 指派一個外部 ip
+        - "{{ management_ip }}"

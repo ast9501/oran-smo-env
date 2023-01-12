@@ -1,0 +1,2 @@
+# Management Node
+management_ip: "{{ hostvars[groups['management'][0]]['ansible_default_ipv4'].address | default(groups['management'][0]) }}"

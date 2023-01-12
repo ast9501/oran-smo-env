@@ -1,0 +1,5 @@
+- hosts: management
+  roles:
+    - { role: nfs, become: yes }
+    - { role: traefik, become: yes }
+    #- { role: harbor, become: yes }

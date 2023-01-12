@@ -1,0 +1,4 @@
+---
+pkgs:
+  - nfs-kernel-server
+nfsdir: /var/share/kubernetes-nfs

@@ -1,0 +1,37 @@
+---
+- name: install nfs-server
+  apt:
+    name: "{{ pkgs }}"
+    update_cache: yes
+    state: present
+  with_items: "{{ pkgs }}"
+
+- name: create directory
+  ansible.builtin.file:
+    path: "{{ nfsdir }}"
+    state: directory
+    mode: '0755'
+
+- name: append config
+  lineinfile:
+    path: /etc/exports
+    line: "{{ nfsdir }} *(rw,sync,no_root_squash)"
+
+- name: update nfs
+  ansible.builtin.shell: 
+    cmd: exportfs -r
+
+- name: install helm repo
+  kubernetes.core.helm_repository:
+    name: nfs-subdir-external-provisioner
+    repo_url: "https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner"
+
+- name: install nfs-provisioner
+  kubernetes.core.helm:
+    name: nfs-subdir-external-provisioner
+    chart_ref: nfs-subdir-external-provisioner/nfs-subdir-external-provisioner
+    release_namespace: default
+    values:
+      nfs:
+        server: 192.168.1.78
+        path: "{{ nfsdir }}"
