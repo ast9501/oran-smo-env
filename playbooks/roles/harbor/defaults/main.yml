@@ -1,0 +1,8 @@
+---
+# TLS
+comman_name: harbor.winlab.nycu.org
+ingress_core_url: harbor.winlab.nycu.org
+ingress_notary_url: notary.winlab.nycu.org
+
+# storage
+storage_class: "nfs-client"

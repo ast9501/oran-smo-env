@@ -1,0 +1,47 @@
+---
+- name: install helm repo
+  kubernetes.core.helm_repository:
+    name: harbor
+    repo_url: "https://helm.goharbor.io"
+
+- name: install harbor
+  kubernetes.core.helm:
+    name: harbor
+    chart_ref: harbor/harbor
+    release_namespace: harbor
+    chart_version: 1.9.3
+    create_namespace: true
+    values:
+      expose:
+        tls:
+          auto:
+            commonName: "{{ comman_name }}"
+        ingress:
+          hosts:
+            core: "{{ ingress_core_url }}"
+            notary: "{{ ingress_notary_url }}"
+          notary:
+            labels: { environment: production, method: traefik }
+          harbor:
+            labels: { environment: production, method: traefik }
+      externalURL: "https://{{ comman_name }}"
+      persistence:
+        enabled: true
+        persistentVolumeClaim:
+          registry:
+            storageClass: "{{ storage_class }}"
+            accessMode: ReadWriteMany
+            size: 30Gi
+          chartmuseum:
+            storageClass: "{{ storage_class }}"
+            accessMode: ReadWriteMany
+            size: 10Gi
+          jobservice:
+            storageClass: "{{ storage_class }}"
+            accessMode: ReadWriteMany
+          database:
+            storageClass: "{{ storage_class }}"
+          redis:
+            storageClass: "{{ storage_class }}"
+          trivy:
+            storageClass: "{{ storage_class }}"
