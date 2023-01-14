@@ -33,5 +33,5 @@
     release_namespace: default
     values:
       nfs:
-        server: 192.168.1.78
+        server: "{{ management_ip }}"
         path: "{{ nfsdir }}"
