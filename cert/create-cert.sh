@@ -7,9 +7,12 @@ openssl req -x509 -new -sha512 -days 3650 \
     -key ca.key \
     -out ca.pem
 
+# create ca.crt for harbor(helm) authorize
+openssl x509 -outform pem -in ca.pem -out ca.crt
+
 echo ----- COPY CA TO OS PATH AND DOCKER PATH -----
 sudo mkdir /usr/share/ca-certificates/cluster
-sudo cp ca.pem /usr/share/ca-certificates/cluster/
+sudo cp ca.crt /usr/share/ca-certificates/cluster/
 
 echo ----- UPDATE OS CERT -----
 # sudo dpkg-reconfigure ca-certificates
