@@ -14,6 +14,7 @@
     values:
       expose:
         tls:
+          certSource: none
           auto:
             commonName: "{{ comman_name }}"
         ingress:
