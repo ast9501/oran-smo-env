@@ -23,3 +23,10 @@ resource "openstack_networking_secgroup_rule_v2" "default_rule_icmp" {
   protocol          = "icmp"
   security_group_id = "${openstack_networking_secgroup_v2.secgroup_oran_infra.id}"
 }
+
+resource "openstack_networking_secgroup_rule_v2" "calico_ipip" {
+  direction         = "ingress"
+  ethertype         = "IPv4"
+  protocol          = "4"
+  security_group_id = "${openstack_networking_secgroup_v2.secgroup_oran_infra.id}"
+}
