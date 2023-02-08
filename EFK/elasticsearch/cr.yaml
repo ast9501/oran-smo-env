@@ -1,0 +1,29 @@
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: main
+  namespace: monitor
+spec:
+  version: 8.6.1 #7.6.2
+  #transport:
+  #  service:
+  #    metadata:
+  #      labels:
+  #        app: elasticsearch
+  #    spec:
+  #      type: NodePort
+  nodeSets:
+  - name: default
+    count: 1
+    config:
+      node.store.allow_mmap: false
+    volumeClaimTemplates:
+    - metadata:
+        name: elasticsearch-data # Do not change this name unless you set up a volume mount for the data path.
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 5Gi
+        storageClassName: nfs-client

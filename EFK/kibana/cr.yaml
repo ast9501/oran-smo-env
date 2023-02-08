@@ -1,0 +1,11 @@
+apiVersion: kibana.k8s.elastic.co/v1
+kind: Kibana
+metadata:
+  name: main
+  namespace: monitor
+spec:
+  version: 8.6.1
+  count: 1
+  elasticsearchRef:
+    name: main
+    namespace: monitor
