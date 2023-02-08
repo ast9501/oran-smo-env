@@ -1,0 +1,3 @@
+[submodule "kubernetes-efk"]
+	path = kubernetes-efk
+	url = https://github.com/ast9501/kubernetes-efk.git
