@@ -64,3 +64,6 @@ edit password env parameter
 ```
 kubectl apply -f fluentd/
 ```
+
+### Support
+https://devopscube.com/setup-efk-stack-on-kubernetes/
