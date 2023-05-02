@@ -25,8 +25,7 @@ resource "openstack_compute_instance_v2" "oran_smo_nodes" {
      name = "netflat"
    }
  }
-/*
- resource "openstack_compute_instance_v2" "oran_oai_nodes" {
+resource "openstack_compute_instance_v2" "oran_oai_nodes" {
    count                  = 1
    name                   = "oran-oai-${count.index}"
    availability_zone      = "nova"
@@ -36,10 +35,9 @@ resource "openstack_compute_instance_v2" "oran_smo_nodes" {
    security_groups        = ["oran_infra"]
 
    network {
-     name = "provider"
+     name = "netflat"
    }
- }
-*/
+}
 /*
  resource "openstack_compute_instance_v2" "oran_central_nodes" {
    count                  = 1

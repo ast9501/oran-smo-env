@@ -15,16 +15,14 @@ resource "openstack_compute_flavor_v2" "smo_node" {
   is_public = "true"
   region = "RegionOne"
 }
-/*
 resource "openstack_compute_flavor_v2" "oai_node" {
-  name = "n4-r16-d64"
-  ram = "8192"
-  vcpus = "4"
-  disk = "64"
+  name = "n10-r16-d128"
+  ram = "16384"
+  vcpus = "10"
+  disk = "128"
   is_public = "true"
   region = "RegionOne"
 }
-*/
 /*
 resource "openstack_compute_flavor_v2" "central_node" {
   name = "n4-r8-d48"
